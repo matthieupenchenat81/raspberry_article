@@ -8,7 +8,6 @@
 <body>
 
 <h1 style="text-align: center">... FastReading ...</h1>
-
 <br><br>
 
 <div class="grid">
@@ -80,11 +79,56 @@
     </div>
 </div>
 
+<svg width="100%" height="100%"></svg>
+
 <script type="application/javascript">
 
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds){
+                break;
+            }
+        }
+    }
+
+    $(".grid").css('display', "none");
+    var url = "http://192.168.9.19:8080/statusSensor.html";
+    var timeoutID = window.setInterval(function() {
+        $.get(url, function(data) {
+            if (data != '0') {
+                $(".grid").css('display', "none");
+                $("svg").css('display', "block");
+            }
+            else {
+                $(".grid").css('display', "block");
+                $("svg").css('display', "none");
+            }
+        });
+    }, 5000);
+
+    // Create circles
+    var svg = d3.select("svg");
+    arr = svg.selectAll("circle")
+            .data([50, 350, 650, 950])
+            .enter().append("circle")
+            .attr("cy", 60)
+            .attr("cx", function(d, i) { return d+100; })
+            .attr("r", 50);
+
     $(document).ready(function() {
-        d3.selectAll(".tile").transition().duration(1000).ease("elastic").delay(100).attr("x",320);
+
+        function turn() {
+            svg.selectAll("circle")
+                    .data([50, 350, 650, 950], function(d) { return d; })
+                    .transition().duration(1000).attr("cx", function(d) { return d + 300})
+                    .transition().duration(1000).attr("cy", 500)
+                    .transition().duration(1000).attr("cx", function(d) { return d})
+                    .transition().duration(1000).attr("cy", 60);
+        }
+        setInterval(turn, 5000);
     });
 </script>
+
 </body>
 </html>
