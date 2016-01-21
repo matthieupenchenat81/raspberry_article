@@ -93,18 +93,21 @@
     }
 
     $(".grid").css('display', "none");
+    var time;
     var url = "http://192.168.9.19:8080/statusSensor.html";
     $.ajaxSetup(({cache:false}));
     var timeoutID = window.setInterval(function() {
         $.get(url, function(data) {
             if (data == '0') {
-                sleep(10000);
-                $(".grid").css('display', "none");
-                $("svg").css('display', "block");
+                if (new Date().getTime() - time > 10000) {
+                    $(".grid").css('display', "none");
+                    $("svg").css('display', "block");
+                }
             }
             else {
                 $(".grid").css('display', "block");
                 $("svg").css('display', "none");
+                time = new Date().getTime();
             }
         });
     }, 1000);
