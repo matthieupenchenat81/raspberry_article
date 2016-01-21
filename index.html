@@ -98,8 +98,10 @@
     var timeoutID = window.setInterval(function() {
         $.get(url, function(data) {
             if (data == '0') {
-                $(".grid").css('display', "none");
-                $("svg").css('display', "block");
+                setTimeout(function() {
+                    $(".grid").css('display', "none");
+                    $("svg").css('display', "block");
+                }, 10000);
             }
             else {
                 $(".grid").css('display', "block");
