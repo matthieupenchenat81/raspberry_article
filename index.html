@@ -3,7 +3,6 @@
 <head>
     <link href="css/metro.css" rel="stylesheet">
     <script src="js/jquery-2.2.0.min.js"></script>
-    <script src="js/metro.js"></script>
     <script src="d3/d3.min.js"></script>
 </head>
 <body>
@@ -81,5 +80,11 @@
     </div>
 </div>
 
+<script type="application/javascript">
+
+    $(document).ready(function() {
+        d3.selectAll(".tile").transition().duration(1000).ease("elastic").delay(100).attr("x",320);
+    });
+</script>
 </body>
 </html>
