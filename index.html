@@ -99,7 +99,7 @@
     var timeoutID = window.setInterval(function() {
         $.get(url, function(data) {
             if (data == '0') {
-                if (new Date().getTime() - time > 10000) {
+                if (new Date().getTime() - time > 5000) {
                     $(".grid").css('display', "none");
                     $("svg").css('display', "block");
                 }
