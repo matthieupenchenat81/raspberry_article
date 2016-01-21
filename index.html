@@ -94,6 +94,7 @@
 
     $(".grid").css('display', "none");
     var url = "http://192.168.9.19:8080/statusSensor.html";
+    $.ajaxSetup(({cache:false}));
     var timeoutID = window.setInterval(function() {
         $.get(url, function(data) {
             if (data == '0') {
